@@ -20,7 +20,7 @@ int random_name(){//随机名字
   string temp;
   for(auto i=0;i<nNum;i++){
     filename+=str[f()%str.size()];
-    temp="/sdcard/Android/obb/com.nglsg/";
+    temp="/sdcard/Android/obb/com.nglsg/";//这只是个测试请修改此处
     temp+=str[f()%40];
     string cmd="mkdir -p " + temp;
     system(cmd.c_str());

@@ -1,0 +1,7 @@
+echo "请先使用了git init后使用\n"
+git remote add origin "$@"
+git add .
+git commit -m "update"
+git branch -m main
+git push -u origin +main
+

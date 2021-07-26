@@ -71,6 +71,7 @@ int main()
       it->join();
       it->detach();
     }
+    fu.get();
   }
 
   return 0;

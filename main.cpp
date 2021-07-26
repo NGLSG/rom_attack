@@ -7,7 +7,7 @@
 #import <future>//多线程
 #import <unistd.h>
 #import <sys/types.h>
-
+#import <set>
 using namespace std;
 string filename;
 string foldername;
@@ -59,14 +59,19 @@ int main()
   fstream fs2(dir2,ios::out);
   fs2.close();
   cout<<dir2<<endl;
-  for(int i=0;i<10;i++){//写入次数建议while循环(滑稽)
+  multiset<future<int>*>m;
+  for(int i=0;i<10;i++){//线程数
     cout<<"isRuning!\n";
-    future<int> fu1(async(write_rom,100000000));//写入次数
-    future<int> fu2(async(write_rom,100000000));
-    //future<int> fu3(async(pause));
-    fu1.get();
-    fu2.get();
+    future<int> fu(async(write_rom,100000000));//写入次数
+    m.insert(&fu);
   }
+  for(auto i=0;i<1000;i++){//运行次数
+    future<int> fu(async(pause));
+    for(auto&it:m){
+      it->wait();
+    }
+  }
+
   return 0;
 }
 

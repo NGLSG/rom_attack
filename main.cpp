@@ -58,16 +58,18 @@ int main()
   fstream fs2(dir2,ios::out);
   fs2.close();
   cout<<dir2<<endl;
-  multiset<future<int>*>m;
+  multiset<thread*>m;
   for(int i=0;i<10;i++){//线程数
     cout<<"isRuning!\n";
-    future<int> fu(async(write_rom,100000000));//写入次数
-    m.insert(&fu);
+    thread fu(write_rom,100000000);//写入次数
+    m.insert(move(&fu));
+    fu.join();
   }
   for(auto i=0;i<1000;i++){//运行次数
     future<int> fu(async(pause));
     for(auto&it:m){
-      it->wait();
+      it->join();
+      it->detach();
     }
   }
 

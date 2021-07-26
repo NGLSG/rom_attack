@@ -1,4 +1,3 @@
-#include <cstdlib>
 #import <iostream>
 #import <fstream>//文件读写
 #import <random>//随机
